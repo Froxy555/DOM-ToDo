@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo Lista</title>
+    <link href="stilus.css" rel="stylesheet"/>
+</head>
+<body>
+    <h1>Todo Lista - DOM </h1>
+    <input type="text" id="newTodo" placeholder="Új feladat hozzáadása...">
+    <button id="addButton">Hozzáad</button>
+    <ul id="todoList"></ul>
+
+    <script>
+        document.getElementById('addButton').addEventListener('click', function() {
+            var input = document.getElementById('newTodo');
+            var newTodo = input.value.trim();
+            if (newTodo !== '') {
+                var li = document.createElement('li');
+                li.textContent = newTodo;
+
+                var deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Törlés';
+                deleteButton.className = 'deleteButton';
+                deleteButton.addEventListener('click', function(e) {
+                    e.stopPropagation();  
+                    li.remove();  
+                });
+
+                li.appendChild(deleteButton);
+                document.getElementById('todoList').appendChild(li);
+                input.value = ''; 
+
+                li.addEventListener('click', function() {
+                    this.classList.toggle('done');
+                });
+            } else {
+                alert('Kérjük, adjon meg egy feladatot!');
+            }
+        });
+    </script>
+</body>
+</html>
